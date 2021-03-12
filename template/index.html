@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WIFI Points</title>
+</head>
+<body>
+   <h1>Городской WI-FI</h1>
+   <table border="1">
+   <tr><th>#</th><th>Местоположение</th><th>Количество точек доступа</th><th>Имя WI-FI сети</th><th>Признак функционирования</th></tr>
+   {% for point in points %}
+   <tr><td>{{ point['id'] }}</td><td>{{ point['place'] }}</td><td>{{ point['amount'] }}</td><td>{{ point['name'] }}</td><td>{{ point['func'] }}</td></tr>
+    {% endfor %}
+    </tabel>
+</body>
+</html>
