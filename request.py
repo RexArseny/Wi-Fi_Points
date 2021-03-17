@@ -1,6 +1,7 @@
-import requests
+from classes import Database, url, database_name, sql_name
 
-url = 'https://apidata.mos.ru/v1/datasets/2756/rows?api_key=f9c0be7f31f63dd7556f10b62cafc58a'
+database = Database()
 
-response = requests.get(url)
-infs = response.json()
+data = database.request(url)
+
+connection = database.connect(database_name, sql_name, data)
