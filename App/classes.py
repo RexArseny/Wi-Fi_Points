@@ -39,16 +39,10 @@ class App:
 
         @app.route('/')
         def index():
-            # ap = App()
-
             conn = sqlite3.connect(database_name)
             conn.row_factory = sqlite3.Row
-
-            # conn = ap.get_db_connection(database_name)
-            # conn = get_db_connection()
             points = conn.execute('SELECT * FROM points').fetchall()
             conn.close()
-            print(html_name)
             return render_template(html_name, points=points)
 
         app.run()
