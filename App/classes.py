@@ -1,40 +1,47 @@
 import requests
 import sqlite3
+import json
 from flask import Flask, render_template
 
-url = 'https://apidata.mos.ru/v1/datasets/2756/rows?api_key=f9c0be7f31f63dd7556f10b62cafc58a'
-database_name = 'database.db'
-sql_name = 'information.sql'
-html_name = 'index.html'
+
+class DatabaseRequest:
+    url = 'https://apidata.mos.ru/v1/datasets/2756/rows?api_key='
+    json_name = 'data.json'
+
+    def request(self):
+        response = requests.get(self.url)
+        data = open(self.json_name, 'w')
+        json.dump(response.json(), data, ensure_ascii=False)
+        data.close()
 
 
-class Database:
+class DatabaseConnect:
+    database_name = 'database.db'
+    sql_name = 'information.sql'
 
-    def request(self, url):
-        response = requests.get(url)
-        data = response.json()
-        return data
+    def connect(self, json_name):
+        data = open(json_name, 'r')
+        json_data = json.load(data)
 
-    def connect(self, database_name, sql_name, data):
-        connection = sqlite3.connect(database_name)
-
-        with open(sql_name) as f:
-            connection.executescript(f.read())
+        connection = sqlite3.connect(self.database_name)
+        with open(self.sql_name) as db:
+            connection.executescript(db.read())
 
         cur = connection.cursor()
 
-        for inf in data:
+        for datas in json_data:
             cur.execute("INSERT INTO points (place, amount, name, func) VALUES (?, ?, ?, ?)", (
-            inf["Cells"]["Location"], inf["Cells"]["NumberOfAccessPoints"], inf["Cells"]["WiFiName"],
-            inf["Cells"]["FunctionFlag"]))
+                datas["Cells"]["Location"], datas["Cells"]["NumberOfAccessPoints"], datas["Cells"]["WiFiName"],
+                datas["Cells"]["FunctionFlag"]))
 
         connection.commit()
         connection.close()
 
 
 class App:
+    html_name = 'index.html'
 
-    def start(self):
+    def start(self, database_name):
         app = Flask(__name__)
 
         @app.route('/')
@@ -43,6 +50,6 @@ class App:
             conn.row_factory = sqlite3.Row
             points = conn.execute('SELECT * FROM points').fetchall()
             conn.close()
-            return render_template(html_name, points=points)
+            return render_template(self.html_name, points=points)
 
         app.run()

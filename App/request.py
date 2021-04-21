@@ -1,7 +1,18 @@
-from classes import Database, url, database_name, sql_name
+from classes import DatabaseRequest, DatabaseConnect
+import schedule
+import time
 
-database = Database()
 
-data = database.request(url)
+def update():
+    db_request = DatabaseRequest()
+    db_request.request()
 
-connection = database.connect(database_name, sql_name, data)
+    db_connect = DatabaseConnect()
+    db_connect.connect(DatabaseRequest.json_name)
+
+
+schedule.every(24).hours.do(update)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
