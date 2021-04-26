@@ -1,6 +1,7 @@
 import requests
 import sqlite3
 import json
+from functools import lru_cache
 from flask import Flask, render_template
 
 
@@ -8,6 +9,7 @@ class DatabaseRequest:
     url = 'https://apidata.mos.ru/v1/datasets/2756/rows?api_key='
     json_name = 'data.json'
 
+    @lru_cache()
     def request(self):
         response = requests.get(self.url)
         data = open(self.json_name, 'w')
@@ -19,6 +21,7 @@ class DatabaseConnect:
     database_name = 'database.db'
     sql_name = 'information.sql'
 
+    @lru_cache()
     def connect(self, json_name):
         data = open(json_name, 'r')
         json_data = json.load(data)
@@ -41,6 +44,7 @@ class DatabaseConnect:
 class App:
     html_name = 'index.html'
 
+    @lru_cache()
     def start(self, database_name):
         app = Flask(__name__)
 
