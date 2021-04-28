@@ -1,8 +1,24 @@
 import requests
 import sqlite3
 import json
+import schedule
+import time
 from functools import lru_cache
 from flask import Flask, render_template
+
+
+class Update:
+    @lru_cache()
+    def update(self):
+        import request
+        import connect
+
+    def update_24(self):
+        schedule.every(24).hours.do(self.update())
+
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
 
 
 class DatabaseRequest:
