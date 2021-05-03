@@ -4,14 +4,17 @@ import json
 import schedule
 import time
 from functools import lru_cache
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 
 class Update:
     @lru_cache()
     def update(self):
-        import request
-        import connect
+        db_request = DatabaseRequest()
+        db_request.request()
+
+        db_connect = DatabaseConnect()
+        db_connect.connect(DatabaseRequest.json_name)
 
     def update_24(self):
         schedule.every(24).hours.do(self.update())
@@ -64,12 +67,26 @@ class App:
     def start(self, database_name):
         app = Flask(__name__)
 
-        @app.route('/')
+        @app.route('/', methods=['GET', 'POST'])
         def index():
-            conn = sqlite3.connect(database_name)
-            conn.row_factory = sqlite3.Row
-            points = conn.execute('SELECT * FROM points').fetchall()
-            conn.close()
-            return render_template(self.html_name, points=points)
+            if request.method == 'POST':
+                db_request = DatabaseRequest()
+                db_request.request()
+
+                db_connect = DatabaseConnect()
+                db_connect.connect(DatabaseRequest.json_name)
+
+                conn = sqlite3.connect(database_name)
+                conn.row_factory = sqlite3.Row
+                points = conn.execute('SELECT * FROM points').fetchall()
+                conn.close()
+                return render_template(self.html_name, points=points)
+
+            else:
+                conn = sqlite3.connect(database_name)
+                conn.row_factory = sqlite3.Row
+                points = conn.execute('SELECT * FROM points').fetchall()
+                conn.close()
+                return render_template(self.html_name, points=points)
 
         app.run()

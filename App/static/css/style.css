@@ -1,0 +1,105 @@
+.body {
+    background: linear-gradient(90deg, #a9c4ef 0%, #86a7ec 100%);
+}
+
+.title {
+    font-family: Arial;
+    text-align: center;
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+    background: url(/static/pictures/picture.png) center;
+    background-size: cover;
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+}
+.title span {
+	font-size: 50px;
+	color: #ffffff;
+	letter-spacing: 20px;
+	text-transform: uppercase;
+    text-shadow: 0 0 10px #ffffff;
+	font-weight: bold;
+}
+
+.button {
+    width: 200px;
+    height: 40px;
+    font-family: Arial;
+    font-size: 20px;
+    color: #000000;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    backdrop-filter: blur(2px);
+    position: relative;
+    cursor: pointer;
+    top: 2vw;
+}
+.button:before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    bottom: -5px;
+    left: -5px;
+    z-index: -1;
+    background: #ffffff;
+    border-radius: 40px;
+    opacity: 0;
+    transition: .5s;
+}
+.button:hover:before {
+    filter: blur(20px);
+    opacity: 1;
+}
+
+.table {
+    font-family: Lucida Sans Unicode, Sans-Serif, Arial;
+    font-size: 15px;
+    border-radius: 10px;
+    border-spacing: 0;
+    text-align: center;
+    position: relative;
+    top: 1vw;
+    margin: auto;
+}
+.table th {
+    font-size: 16px;
+    background: #6b90e8;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.table th:hover{
+    color: #000000;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(20px);
+    transition: .5s;
+}
+.table th, .table td {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+}
+.table th:first-child {
+    border-top-left-radius: 10px;
+}
+.table th:last-child {
+    border-top-right-radius: 10px;
+    border-right: none;
+}
+.table td {
+    padding: 10px 20px;
+    background: #e7f0fb;
+}
+.table tr:last-child td:first-child {
+    border-radius: 0 0 0 10px;
+}
+.table tr:last-child td:last-child {
+    border-radius: 0 0 10px 0;
+}
+.table tr td:last-child {
+    border-right: none
+}
