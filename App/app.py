@@ -1,4 +1,4 @@
-from classes import App, DatabaseConnect
+from app_class import App
 
 web_app = App()
-web_app.start(DatabaseConnect.database_name)
+web_app.start(App.database_name)
