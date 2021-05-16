@@ -5,7 +5,9 @@ from base_class import Base
 
 
 class DatabaseRequest(Base):
-    url = 'https://apidata.mos.ru/v1/datasets/2756/rows?api_key='
+    key = open('key.txt', 'r')
+    key = key.read()
+    url = 'https://apidata.mos.ru/v1/datasets/2756/rows?api_key=' + key
 
     @lru_cache()
     def request(self):
