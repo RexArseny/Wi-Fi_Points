@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask, render_template
-from model import Update
+# from model import Update
 
 html_name = 'index.html'
 database_name = 'database.db'
@@ -16,6 +16,7 @@ def index():
     return render_template(html_name, points=points)
 
 
-app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
 
 # Update().update_24()
