@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="static/pictures/icon.ico"/>
+    <link rel="stylesheet" href="static/css/style.css" type="text/css"/>
+    <script src="static/js/scripts.js"></script>
+    <meta charset="UTF-8">
+    <title>Wi-Fi Points</title>
+</head>
+<body class="body">
+<div class="title">
+    <span>Городской WI-FI</span>
+    <form method="POST">
+        <button class="button">Обновить список</button>
+    </form>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Местоположение</th>
+        <th>Количество точек доступа</th>
+        <th>Имя WI-FI сети</th>
+        <th>Признак функционирования</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for point in points %}
+    <tr>
+        <td>{{ point['id'] }}</td>
+        <td>{{ point['place'] }}</td>
+        <td>{{ point['amount'] }}</td>
+        <td>{{ point['name'] }}</td>
+        <td>{{ point['func'] }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
