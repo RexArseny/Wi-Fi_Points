@@ -1,3 +1,4 @@
+import os
 import time
 import json
 import sqlite3
@@ -7,8 +8,9 @@ import schedule
 
 class DatabaseRequest:
     json_name = 'data.json'
-    key = open('key.txt', 'r')
-    url = 'https://apidata.mos.ru/v1/datasets/2756/rows?api_key=' + key.read()
+    # key = open('key.txt', 'r').read()
+    key = os.environ["KEY"]
+    url = 'https://apidata.mos.ru/v1/datasets/2756/rows?api_key=' + key
 
     def request(self):
         response = requests.get(self.url)
@@ -41,7 +43,8 @@ class DatabaseConnect:
 
 
 class Update:
-    def __update(self):
+    @staticmethod
+    def __update():
         db_request = DatabaseRequest()
         db_request.request()
 
