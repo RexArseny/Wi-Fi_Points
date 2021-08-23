@@ -1,6 +1,7 @@
 import sqlite3
 from flask import Flask, render_template
-# from model import Update
+from threading import Thread
+from model import Update
 
 html_name = 'index.html'
 database_name = 'database.db'
@@ -17,6 +18,10 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    thread1 = Thread(target=app.run)
+    thread2 = Thread(target=Update().update_24)
 
-# Update().update_24()
+    thread1.start()
+    thread2.start()
+    thread1.join()
+    thread2.join()

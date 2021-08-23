@@ -49,7 +49,7 @@ class Update:
         db_connect.connect(DatabaseRequest.json_name)
 
     def update_24(self):
-        schedule.every(24).hours.do(self.__update())
+        schedule.every(24).hours.do(self.__update)
 
         while True:
             schedule.run_pending()
