@@ -22,39 +22,6 @@
 	font-weight: bold;
 }
 
-.button {
-    width: 200px;
-    height: 40px;
-    font-family: Arial;
-    font-size: 20px;
-    color: #000000;
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 10px;
-    backdrop-filter: blur(2px);
-    position: relative;
-    cursor: pointer;
-    top: 2vw;
-}
-.button:before {
-    content: "";
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    bottom: -5px;
-    left: -5px;
-    z-index: -1;
-    background: #ffffff;
-    border-radius: 40px;
-    opacity: 0;
-    transition: .5s;
-}
-.button:hover:before {
-    filter: blur(20px);
-    opacity: 1;
-}
-
 .table {
     font-family: Lucida Sans Unicode, Sans-Serif, Arial;
     font-size: 15px;
